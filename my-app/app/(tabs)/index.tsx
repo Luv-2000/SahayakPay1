@@ -37,6 +37,15 @@ export default function HomeScreen() {
           <FontAwesome5 name="history" size={40} color="#FFF" style={styles.icon} accessibilityElementsHidden />
           <Text style={styles.buttonText}>Transaction History</Text>
         </Pressable>
+        <Pressable
+          style={({ pressed }) => [styles.button, styles.sahayakPay, pressed && styles.pressed]}
+          accessibilityLabel="SahayakPay"
+          accessibilityRole="button"
+          onPress={() => { /* Add your action here */ }}
+        >
+          <Ionicons name="mic" size={40} color="#FFF" style={styles.icon} accessibilityElementsHidden />
+          <Text style={styles.buttonText}>SahayakPay</Text>
+        </Pressable>
       </View>
     </ThemedView>
   );
@@ -53,7 +62,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     color: '#FFD700',
-    marginBottom: 60,
+    marginBottom: 24, // Reduced from 60
     fontWeight: 'bold',
     textAlign: 'center',
     letterSpacing: 1,
@@ -61,7 +70,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     width: '100%',
     alignItems: 'center',
-    gap: 32,
+    gap: 18, // Reduced from 32
   },
   button: {
     flexDirection: 'row',
@@ -72,8 +81,8 @@ const styles = StyleSheet.create({
     height: 110,
     borderRadius: 20,
     justifyContent: 'flex-start',
-    paddingHorizontal: 24,
-    marginVertical: 12,
+    paddingHorizontal: 14, // Reduced from 24
+    marginVertical: 6, // Reduced from 12
     elevation: 14, // Even stronger shadow for 3D effect
     shadowColor: '#FFF', // White shadow for glowing 3D effect
     shadowOpacity: 0.7,
@@ -94,6 +103,9 @@ const styles = StyleSheet.create({
   },
   transactionHistory: {
     backgroundColor: '#D32F2F',
+  },
+  sahayakPay: {
+    backgroundColor: '#8E24AA', // A distinct color for the new button
   },
   buttonText: {
     color: '#FFF',
