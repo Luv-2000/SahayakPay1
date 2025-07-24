@@ -1,9 +1,28 @@
+require('dotenv').config();
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
 const { v4: uuidv4 } = require('uuid');
 
-const serviceAccount = require('./firebase-service-account.json');
+//const serviceAccount = require('./firebase-service-account.json');
+
+const secretClient = new SecretManagerServiceClient();
+
+async function getFirebaseServiceAccount() {
+  const projectId = process.env.PROJECT_ID;
+  const secretName = process.env.SECRET_NAME;
+  const version = process.env.SECRET_VERSION || 'latest';
+
+  const [accessResponse] = await secretClient.accessSecretVersion({
+    name: `projects/${projectId}/secrets/${secretName}/versions/${version}`,
+  });
+
+  const payload = accessResponse.payload.data.toString('utf8');
+  return JSON.parse(payload);
+}
+
+const serviceAccount = await getFirebaseServiceAccount();
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
